@@ -1,0 +1,10 @@
+drivers/*
+.idea/*
+*.iml
+.idea/*.iml
+.idea/*.xml
+*.xml
+*.tgz
+*.zip
+*.gz
+*.log
