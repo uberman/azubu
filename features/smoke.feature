@@ -37,3 +37,27 @@ Feature: Azubutv home navigation functionality
     |Azubu Blog|blog|
     |Terms & Conditions|terms|
     |Privacy Policy|policy|
+
+  Scenario Outline: Visitors can click on mobile apps to download
+    Given a visitor to the Azubutv home page
+    When they click on an app <icon>
+    Then the browser is redirected to the app <store>
+  Examples:
+    |icon|store|
+    |play.google|google play|
+    |itunes.apple|itunes     |
+
+  Scenario Outline: Visitors can use search feature to find pro player info
+    Given a visitor to the Azubutv home page
+    When they search for a player's <name> using the search feature
+    Then the browser redirects to player search results
+  Examples:
+    |name|
+    |ssumday|
+    |boxer  |
+    |slayer |
+
+  Scenario: Visitors can click through the carousel to see next videos
+    Given a visitor to the Azubutv home page
+    When they click on the right side of the hero carousel
+    Then the carousel rotates to the right

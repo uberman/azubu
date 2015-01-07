@@ -77,3 +77,46 @@ Then(/^they get redirected to a new footer page (.*)$/) do |area|
   p = @browser.url
   p == "www.azubu.tv/#{area}"
 end
+
+When(/^they click on an app (.*)$/) do |icon|
+  p = @browser.div(:class => "appstores").a(:href => /https:\/\/#{icon}/)
+  # p = @browser.a(:class => "#{icon}").image(:width => "135")
+  p.exist?
+  p.click
+end
+
+Then(/^the browser is redirected to the app (.*)$/) do |store|
+  p = @browser.title
+  puts p
+  p == /#{store}/
+  # (:class => "gb_Oa", :title => "Google Play")
+  assert(p)
+end
+
+When(/^they search for a player's (.*) using the search feature$/) do |name|
+  p = @browser.text_field(:class => "search")
+  p.exist?
+  p.set "#{name}"
+  p.send_keys :return
+
+end
+
+Then(/^the browser redirects to player search results$/) do
+  p = @browser.p(:class => "MagTitle04 lightgray").text
+  x = p.include? "Found"
+  assert(x)
+
+end
+
+When(/^they click on the right side of the hero carousel$/) do
+  p = @browser.a(:class => "right carousel-control")
+  p.exist?
+  @vod_style_before = @browser.div(:class => "carousel-inner").div(:class => "item active").style
+  sleep 2
+  p.click
+  @vod_style_after =  @browser.div(:class => "carousel-inner").div(:class => "item active").style
+end
+
+Then(/^the carousel rotates to the right$/) do
+  assert(@vod_style_before != @vod_style_after)
+end
